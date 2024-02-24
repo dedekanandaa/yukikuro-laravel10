@@ -1,5 +1,6 @@
-<footer class="bg-neutral-800 py-7 bottom-0">
-    <div class="mx-auto md:w-10/12 max-w-screen-xl flex justify-between">
+
+<footer class="bg-neutral-800 py-7 bottom-0"> 
+    <div class="mx-auto md:w-10/12 max-w-screen-xl flex justify-between px-4">
         <p class="text-white">© Yuki Kuro</p>
         
         <div class="flex gap-2">
@@ -27,5 +28,4 @@
             </svg> --}}
         </div>
     </div>
-
 </footer>
