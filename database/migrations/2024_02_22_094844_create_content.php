@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('content', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->integer('price');
-            $table->string('thumbnail', 255);
-            $table->text('description');
-
+            $table->foreignId('id_article')->constrained('article');
+            $table->enum('type',['image','product','text']);
+            $table->tinyInteger('many_cols');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('content');
     }
 };

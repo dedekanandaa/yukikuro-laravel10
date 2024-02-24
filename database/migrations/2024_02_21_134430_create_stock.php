@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('stock', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_product')->constrained('product');
             $table->enum('size', ['S', 'M', 'L', 'XL', 'XXL']);
             $table->tinyInteger('qty');
             $table->timestamps();
-            $table->foreignId('id_product')->constrained('product');
         });
     }
 
