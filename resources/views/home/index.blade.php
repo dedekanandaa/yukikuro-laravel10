@@ -14,7 +14,7 @@
                     <a href="/shop/{{$item->name}}">
                         <span class="absolute bg-neutral-400 text-neutral-100 text-sm font-thin mt-3 ml-3 px-2.5 py-1 rounded">Sold out</span>
                         <figure class="aspect-square place-content-center grid">
-                            <img class="w-full" src="/image/product/{{$item->id.'/'.$item->thumbnail}}" alt="{{$item->name}}.img">
+                            <img class="w-full" src="/image/product/{{$item->id.'/'.$item->thumbnail}}" alt="">
                         </figure>
                         <div class="text-center">
                             <p class="text-sm font-semibold">{{$item->name}}</p>

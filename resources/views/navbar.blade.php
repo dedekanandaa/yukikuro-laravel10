@@ -13,16 +13,16 @@
                         aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="/about"
-                        class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">About</a>
+                    <a href="/blog"
+                        class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">Blog</a>
                 </li>
                 <li>
                     <a href="/shop"
-                        class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">Shop</a>
+                    class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">Shop</a>
                 </li>
                 <li>
-                    <a href="/blog"
-                        class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">Blog</a>
+                    <a href="/about"
+                        class="block py-2 px-3 text-neutral-900 rounded hover:bg-neutral-100 md:hover:bg-transparent md:border-0 md:hover:text-neutral-700 md:p-0">About</a>
                 </li>
             </ul>
         </div>
@@ -37,19 +37,20 @@
                     d="M1 1h15M1 7h15M1 13h15" />
             </svg>
         </button>
-        <div class="hidden w-full" id="navbar-hamburger">
-            <ul class="flex flex-col font-medium mt-4  bg-neutral-50">
+
+        <div class="hidden w-full md:hidden" id="navbar-hamburger">
+            <ul class="flex flex-col font-medium mt-4">
                 <li>
-                    <a href="/" class="block py-2 px-3 text-neutral-900 hover:bg-neutral-100">Home</a>
+                    <a href="/" class="block py-2 px-3 text-neutral-900  active:bg-neutral-100">Home</a>
                 </li>
                 <li>
-                    <a href="/about" class="block py-2 px-3 text-neutral-900 hover:bg-neutral-100">About</a>
+                    <a href="/blog" class="block py-2 px-3 text-neutral-900  active:bg-neutral-100">Blog</a>
                 </li>
                 <li>
-                    <a href="/shop" class="block py-2 px-3 text-neutral-900 hover:bg-neutral-100">Shop</a>
+                    <a href="/shop" class="block py-2 px-3 text-neutral-900  active:bg-neutral-100">Shop</a>
                 </li>
                 <li>
-                    <a href="/blog" class="block py-2 px-3 text-neutral-900 hover:bg-neutral-100">Blog</a>
+                    <a href="/about" class="block py-2 px-3 text-neutral-900  active:bg-neutral-100">About</a>
                 </li>
             </ul>
         </div>

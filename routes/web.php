@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\blogController;
+use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\shopController;
 use Illuminate\Support\Facades\File;
@@ -54,16 +55,24 @@ Route::get('/image/product/{id}/{filename}', function($id, $filename) {
 |----------
 */
 
-Route::get('/', function () {
-    return view('/home.index');
-});
-
-Route::get('/blog', function () {
-    return view('/blog.index');
-});
-
 Route::get('/about', function () {
     return view('about.index');
+});
+
+Route::controller(dashboardController::class)->group(function () {
+    Route::get('/dashboard', 'index');
+
+    Route::get('/dashboard/product/new', 'newProduct');
+    Route::post('/dashboard/product/newp', 'c_product');
+    Route::get('/dashboard/product/new/{id}', '');
+
+    Route::get('/dashboard/product', 'r_product');
+
+    Route::post('/dashboard/product/edit', 'tesimage');
+    Route::get('/dashboard/product/edit/{id}', 'updateProduct');
+
+    
+    Route::get('/dashboard/product/delete', 'd_product');
 });
 
 Route::controller(homeController::class)->group(function () {
@@ -82,8 +91,4 @@ Route::controller(shopController::class)->group(function () {
 Route::controller(blogController::class)->group(function () {
     Route::get('/blog', 'index');
     Route::get('/blog/{title}', 'article');
-});
-
-Route::get('/cona' , function() {
-    return view('my-component');
 });

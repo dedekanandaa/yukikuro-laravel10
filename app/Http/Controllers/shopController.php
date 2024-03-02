@@ -10,6 +10,7 @@ class shopController extends Controller
 {
     public function index() {
         $product = DB::table('product')
+        ->where('visibility', true)
         ->orderBy('id', 'desc')
         ->get();
 

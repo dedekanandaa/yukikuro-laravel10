@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('thumbnail', 255);
             $table->text('description');
+            $table->boolean('visibility');
 
             $table->timestamps();
         });

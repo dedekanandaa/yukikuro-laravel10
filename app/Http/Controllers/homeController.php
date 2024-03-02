@@ -17,6 +17,7 @@ class homeController extends Controller
         $product = DB::table('product')
         ->orderBy('id', 'desc')
         ->limit(6)
+        ->where('visibility', true)
         ->get();
 
         return view('home.index')
