@@ -12,7 +12,7 @@
 
 <body>
 
-    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav class="fixed top-0 z-40 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -48,7 +48,7 @@
                                  </svg>
                             </button>
                         </div>
-                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                        <div class="z-40 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                             id="dropdown-user">
                             <div class="px-4 py-3" role="none">
                                 <a href="#"
@@ -64,7 +64,7 @@
 
     {{-- sidebar --}}
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        class="fixed top-0 left-0 z-30 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
@@ -113,19 +113,18 @@
     <div class="p-6 sm:ml-64 mt-14">
         
         @if ($errors->any())
-            <div class="bg-red-500 p-4 mb-6 text-white text-center">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li class="text-sm">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        
+        @foreach ($errors->all() as $error)
+        <x-alert :color="'red'">
+            {{ $error }}
+        </x-alert>
+        @endforeach
         @endif
-
+        
         @if (session('success'))
-            <div class="bg-green-500 p-4 mb-6 text-white text-center">
-                {{ session('success') }}
-            </div>
+        <x-alert :color="'green'">
+            {{ session('success') }}
+        </x-alert>
         @endif
 
         @yield("content")

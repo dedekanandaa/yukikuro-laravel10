@@ -62,17 +62,15 @@ Route::get('/about', function () {
 Route::controller(dashboardController::class)->group(function () {
     Route::get('/dashboard', 'index');
 
-    Route::get('/dashboard/product/new', 'newProduct');
-    Route::post('/dashboard/product/newp', 'c_product');
-    Route::get('/dashboard/product/new/{id}', '');
+    Route::get('/dashboard/product/new', 'c_product');
+    Route::post('/dashboard/product/newp', 'createProduct');
 
-    Route::get('/dashboard/product', 'r_product');
+    Route::get('/dashboard/product', 'readProduct');
 
-    Route::post('/dashboard/product/edit', 'tesimage');
-    Route::get('/dashboard/product/edit/{id}', 'updateProduct');
+    Route::post('/dashboard/product/edit', 'updateProduct');
+    Route::get('/dashboard/product/edit/{id}', 'u_product');
 
-    
-    Route::get('/dashboard/product/delete', 'd_product');
+    Route::get('/dashboard/product/delete/{id}', 'd_product');
 });
 
 Route::controller(homeController::class)->group(function () {
