@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('content_detail', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_content')->constrained('content');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -10,15 +10,17 @@ class homeController extends Controller
     public function index()
     {
         $article = DB::table('article')
-        ->orderBy('id', 'desc')
+        ->orderByDesc('id')
         ->limit(6)
         ->get();
 
         $product = DB::table('product')
-        ->orderBy('id', 'desc')
-        ->limit(6)
-        ->where('visibility', true)
+        ->select( 'product.id','product.name','product.thumbnail', 'product.price', DB::raw('SUM(qty) as total'))
+        ->join('stock', 'product.id', '=', 'stock.id_product')
+        ->groupBy( 'product.id','product.name', 'product.thumbnail', 'product.price')
+        ->orderByDesc('product.id')
         ->get();
+
 
         return view('home.index')
         ->with('article', $article)

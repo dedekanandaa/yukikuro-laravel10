@@ -63,7 +63,7 @@ class dashboardController extends Controller
             $file = $request->file('thumbnail');
             $image = $manager->read($file);
             $image->scale(width:600);
-            $encoded = $image->encode(new WebpEncoder(quality: 100));
+            $encoded = $image->encode(new WebpEncoder(quality: 75));
             $encoded->save(storage_path('app/public/product/'.$id.'/'. $name));
             
             if ($request->hassize == true) {
@@ -82,6 +82,11 @@ class dashboardController extends Controller
                     'qty' => 0 . $request->qty,
                 ]);
             }
+
+            DB::table('product_image')
+            ->insert([
+                'id_product' => $id
+            ]);
             
             DB::commit();
             return redirect('dashboard/product')->with('success', 'New product added successfully!');
@@ -104,10 +109,17 @@ class dashboardController extends Controller
         $stock = DB::table('stock')
         ->where('id_product', $id)
         ->get();
+
+        $image = DB::table('product_image')
+        ->where('id_product', $id)
+        ->get();
+
         return view('dashboard.u-product')
         ->with('product', $product)
-        ->with('stock', $stock);
+        ->with('stock', $stock)
+        ->with('image', $image);
     }
+
     public function updateProduct(Request $request) {
         $request->validate([
             'name' => 'required|string|max:100',

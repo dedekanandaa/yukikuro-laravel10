@@ -75,14 +75,7 @@
                 <p class="font-thin">{{ $product[0]->description}}</p>
             </div>
             
-            <div class="text-neutral-500 text-sm mb-4">
-                <p class="mb-2">Sizing Guide : </p>
-                <p class="font-thin">S : 12cm | 12cm | 12cm | </p>
-                <p class="font-thin">M : 12cm | 12cm | 12cm | </p>
-                <p class="font-thin">L : 12cm | 12cm | 12cm | </p>
-                <p class="font-thin">XL : 12cm | 12cm | 12cm | </p>
-            </div>
-  
+            @empty (!$stock->value('size'))
             <div class="flex items-center mb-4 gap-2">
                 <p>Size :</p>
                 <ul class="flex gap-2">
@@ -93,26 +86,26 @@
                     </x-product-size>
                         
                     @endforeach
-
                 </ul>
-
             </div>
+                
+            @endempty
             
-            <div>
-                <div class="relative flex items-center gap-2 mb-5">
-                    <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" class="bg-white hover:bg-gray-200 inline-flex items-center justify-center p-4 active:bg-gray-300">
+            <div class="flex gap-3">
+                <div class="relative flex items-center gap-2">
+                    <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" class="bg-white hover:bg-gray-200 inline-flex items-center border border-gray-500 justify-center p-3 active:bg-gray-300">
                         <svg class="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                         </svg>
                     </button>
                     <input type="text" id="counter-input" data-input-counter data-input-counter-min="1" data-input-counter-max="5" class="flex-shrink-0 text-gray-900 dark:text-white border bg-transparent text-sm font-normal focus:border-black focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" placeholder="" value="1" required />
-                    <button type="button" id="increment-button" data-input-counter-increment="counter-input" class="bg-white hover:bg-gray-200 inline-flex items-center justify-center p-4 active:bg-gray-300">
+                    <button type="button" id="increment-button" data-input-counter-increment="counter-input" class="bg-white hover:bg-gray-200 inline-flex items-center border border-gray-500 justify-center p-3 active:bg-gray-300">
                         <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
                         </svg>
                     </button>
                 </div>
-                <button type="submit" class="border w-full text-white px-12 py-3 bg-neutral-700 hover:bg-neutral-600 active:bg-neutral-700">
+                <button type="submit" class="grow text-white bg-neutral-700 hover:bg-neutral-600 active:bg-neutral-700">
                     Add to Cart
                 </button>
             </div>
@@ -152,19 +145,24 @@
 
         document.addEventListener( 'DOMContentLoaded', function () {
         var main = new Splide( '#main-carousel', {
-            type        : 'slide',
+            type        : 'fade',
+            drag        : false,
             rewind      : true,
-            pagination  : false,
+            focus       : "none",
             arrows      : false,
+            
         } );
-
+        
         var thumbnails = new Splide( '#thumbnails', {
             fixedWidth  : 100,
-            fixedHeight  : 70,
+            fixedHeight : 70,
             gap         : 5,
+            perMove     : 1,
+            snap        : false,
+            updatOnMove : false,
             rewind      : true,
-            pagination  : false,
-            isNavigation: true
+            keyboard    : 'global',
+            isNavigation: true,
         } );
 
         main.sync( thumbnails );

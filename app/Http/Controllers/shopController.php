@@ -10,8 +10,10 @@ class shopController extends Controller
 {
     public function index() {
         $product = DB::table('product')
-        ->where('visibility', true)
-        ->orderBy('id', 'desc')
+        ->select( 'product.id','product.name','product.thumbnail', 'product.price', DB::raw('SUM(qty) as total'))
+        ->join('stock', 'product.id', '=', 'stock.id_product')
+        ->groupBy( 'product.id','product.name', 'product.thumbnail', 'product.price')
+        ->orderByDesc('product.id')
         ->get();
 
         // return $product;

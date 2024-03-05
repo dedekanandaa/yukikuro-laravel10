@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\blogController;
+use App\Http\Controllers\dashboardBlogController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\shopController;
@@ -61,16 +62,28 @@ Route::get('/about', function () {
 
 Route::controller(dashboardController::class)->group(function () {
     Route::get('/dashboard', 'index');
-
-    Route::get('/dashboard/product/new', 'c_product');
-    Route::post('/dashboard/product/newp', 'createProduct');
-
+    
     Route::get('/dashboard/product', 'readProduct');
 
-    Route::post('/dashboard/product/edit', 'updateProduct');
+    Route::get('/dashboard/product/new', 'c_product');
+    Route::post('/dashboard/product/create', 'createProduct');
+
     Route::get('/dashboard/product/edit/{id}', 'u_product');
+    Route::post('/dashboard/product/edit', 'updateProduct');
 
     Route::get('/dashboard/product/delete/{id}', 'd_product');
+});
+
+Route::controller(dashboardBlogController::class)->group(function () {
+    Route::get('/dashboard/blog', 'r_blog');
+
+    Route::get('/dashboard/blog/new', 'c_blog');
+    Route::post('/dashboard/blog/create', 'createBlog');
+
+    Route::get('/dashboard/blog/edit/{id}', 'u_blog');
+    Route::post('/dashboard/blog/edit', 'updateBlog');
+
+    Route::get('/dashboard/blog/delete/{id}', 'd_blog');
 });
 
 Route::controller(homeController::class)->group(function () {

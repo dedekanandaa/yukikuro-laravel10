@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form action="/dashboard/product/newp" method="POST" enctype="multipart/form-data" class="flex flex-col lg:flex-row gap-4 mx-auto">
+<form action="/dashboard/product/create" method="POST" enctype="multipart/form-data" class="flex flex-col lg:flex-row gap-4 mx-auto">
     @csrf
     <label for="choose-file" class="flex-col flex gap-3 hover:cursor-pointer">
         <p class="font-bold">Product Thumbnail</p>
@@ -13,20 +13,20 @@
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span></p>
             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
         </div>
-        <input name="thumbnail" type="file" id="choose-file" accept="image/png, image/jpeg, image/webp">
+        <input name="thumbnail" type="file" id="choose-file" accept="image/png, image/jpeg, image/webp" required>
     </label>
     <div class="grow grid gap-4 h-min">
         <div class="grid">
             <label for="name">Product Name</label>
-            <input name="name" type="text" class="" placeholder="Nama Produk">
+            <input name="name" type="text" class="" placeholder="Nama Produk" required>
         </div>
         <div class="grid">
             <label for="price">Price</label>
-            <input name="price" type="number" class="" placeholder="Harga">
+            <input name="price" type="number" class="" placeholder="Harga" required>
         </div>
         <div class="grid">
             <label for="price">Description</label>
-            <textarea name="description" placeholder="Description" rows="4"></textarea>
+            <textarea name="description" placeholder="Description" rows="4" required></textarea>
         </div>
           <div class="flex gap-3 items-center"> 
               <input id="has-size" type="checkbox" name="hassize">
@@ -71,7 +71,6 @@ function getImgData() {
 }
 
 const hasSize = document.getElementById("has-size");
-const sizeForm1 = document.getElementById("size-form-1");
 
 hasSize.addEventListener("change", (function() {
         if (hasSize.checked) {

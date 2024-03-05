@@ -21,19 +21,14 @@ class blogController extends Controller
         ->get();
 
         $content= DB::table('content')
-        ->where('id_article', $article[0]->id)
+        ->where('id_article', $article->value('id'))
         ->get();
 
         $detail = DB::table('content_detail')
         ->select('content_detail.*')
         ->join('content','content.id','=', 'content_detail.id_content')
-        ->where('id_article', $article[0]->id)
+        ->where('id_article', $article->value('id'))
         ->get();
-
-
-        $data = $article->merge($content);
-        $wow = $data->merge($detail);
-        // return $wow;
 
         return view('blog.article')
         ->with('article', $article)

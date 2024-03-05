@@ -17,24 +17,18 @@
 <div class="relative overflow-x-auto mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
+            <tr class="text-center">
+                <th class="border py-3 w-36">
                     Image
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Product name
+                <th class="border py-3">
+                    Product
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Description
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3">
+                <th class="border py-3">
                     Stock
                 </th>
-                <th class="text-center">
-                    Visibility
+                <th class="border py-3">
+                    Visible
                 </th>
             </tr>
         </thead>
@@ -43,38 +37,31 @@
             @foreach ($product as $item)
 
             <tr class="bg-white border-b hover:cursor-pointer hover:bg-gray-50" onclick="window.location = ('/dashboard/product/edit/{{$item->id}}')">
-                <td scope="row">
-                    <img src="/image/product/{{$item->id . '/' .$item->thumbnail}}" class="w-16">
+                <td>
+                    <img src="/image/product/{{$item->id . '/' .$item->thumbnail}}" class="h-36">
                 </td>
                 <td class="px-6 py-4">
                     <p class="font-bold">{{$item->name}}</p>
-                </td>
-                <td class="px-6 py-4">
-                    {{$item->description}}
-                </td>
-                <td class="px-6 py-4">
-                    {{'Rp. '.number_format($item->price, 0,',', '.')}}
-                </td>
-                <td class="px-6 py-4">
-                    <table>
-                        <tr>
-
+                    <p>{{'Rp. '.number_format($item->price, 0,',', '.')}}</p>
+                    <p>{{$item->description}}</p>
+                </td>    
+                <td class="">
+                    <table class="mx-auto">
                         @foreach ($stock as $data)
-                        @if ($data->id_product == $item->id)
-
-                        
-                        @empty(!$data->size)
-                        
-                        <td>{{$data->size}}</td>
-                        <td> = </td>
-
-                        @endempty
-
-                        <td>{{$data->qty . ' Pcs'}}</td>
-                        </tr>
+                        <tr>
+                            @if ($data->id_product == $item->id)
+                            @empty(!$data->size)
                             
-                        @endif
-                        @endforeach
+                            <td class="text-end">{{$data->size}} </td>
+                            <td class="text-center"> = </td>
+                            
+                            @endempty
+                            
+                            <td class="text-end">{{$data->qty . ' Pcs'}}</td>
+                            
+                            @endif
+                        </tr>
+                            @endforeach
 
                     </table>
                 </td>
