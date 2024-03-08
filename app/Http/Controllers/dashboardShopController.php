@@ -9,7 +9,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\WebpEncoder;
 
-class dashboardController extends Controller
+class dashboardShopController extends Controller
 {
     public function index() {
         return view('dashboard.index');

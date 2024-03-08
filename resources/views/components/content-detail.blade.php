@@ -1,20 +1,21 @@
-<div class="grid {{"lg:grid-cols-".$item->many_cols}} items-center">
-
+    <div class="flex flex-col md:flex-row gap-2">
     @foreach ($detail as $data)
     @if ($data->id_content == $item->id)
     @switch($item->type)
         @case("image")
-            
-            <div>
                 @empty(!$data->description)
-                <img src="/image/article/{{ $item->id_article.'/'.$data->description }}">
+                    @php
+                        list($width, $height) = getImageSize(storage_path("app/public/article/". $item->id_article.'/'.$data->description));
+                    @endphp
+                    <div class="asdf" style="--ratio : {{$width.'/'.$height}};">
+                        <img src="/image/article/{{ $item->id_article.'/'.$data->description }}" class="w-full" loading="lazy">
+                    </div>
                 @endempty
-            </div>
             @break
 
         @case("text")
 
-            <p class="p-5">{{ $data->description }}</p>
+            <p class="text-justify">{{ $data->description }}</p>
             @break
 
         @default

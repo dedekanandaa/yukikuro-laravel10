@@ -45,7 +45,7 @@
                     <p>{{'Rp. '.number_format($item->price, 0,',', '.')}}</p>
                     <p>{{$item->description}}</p>
                 </td>    
-                <td class="">
+                <td>
                     <table class="mx-auto">
                         @foreach ($stock as $data)
                         <tr>
@@ -57,7 +57,7 @@
                             
                             @endempty
                             
-                            <td class="text-end">{{$data->qty . ' Pcs'}}</td>
+                            <td class="text-end min-w-full">{{$data->qty}}</td>
                             
                             @endif
                         </tr>
@@ -68,18 +68,19 @@
                 <td class="text-center">
 
                     @if ($item->visibility)
-
                     <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                        Yes
+                        <svg class="size-4 text-green-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
+                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
                     </span>
-
                     @else
-
                     <span class="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                        No
+                        <svg class="size-4 text-red-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14c-.5-.6-.9-1.3-1-2 0-1 4-6 9-6m7.6 3.8A5 5 0 0 1 21 12c0 1-3 6-9 6h-1m-6 1L19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
                     </span>
-
-                    @endif
+                    @endif 
 
                 </td>
             </tr>

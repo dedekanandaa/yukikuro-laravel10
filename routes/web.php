@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\blogController;
 use App\Http\Controllers\dashboardBlogController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\dashboardShopController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\shopController;
 use Illuminate\Support\Facades\File;
@@ -60,7 +60,7 @@ Route::get('/about', function () {
     return view('about.index');
 });
 
-Route::controller(dashboardController::class)->group(function () {
+Route::controller(dashboardShopController::class)->group(function () {
     Route::get('/dashboard', 'index');
     
     Route::get('/dashboard/product', 'readProduct');
@@ -84,6 +84,8 @@ Route::controller(dashboardBlogController::class)->group(function () {
     Route::post('/dashboard/blog/edit', 'updateBlog');
 
     Route::get('/dashboard/blog/delete/{id}', 'd_blog');
+    Route::get('/dashboard/content/delete/{id}', 'd_content');
+    Route::get('/dashboard/detail/delete/{id}', 'd_detail');
 });
 
 Route::controller(homeController::class)->group(function () {

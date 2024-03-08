@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('content', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_article')->constrained('article');
-            $table->enum('type',['image','product','text']);
-            $table->tinyInteger('many_cols');
             $table->timestamps();
         });
     }

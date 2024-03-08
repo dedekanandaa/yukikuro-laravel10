@@ -11,8 +11,8 @@
     @csrf
     <input type="hidden" value="{{$product->id}}" name="id">
     <div>
-        <label for="choose-file" class="flex-col flex gap-3 hover:cursor-pointer">
-            <p class="font-bold">Product Thumbnail</p>
+        <label for="choose-file" class="flex-col flex hover:cursor-pointer">
+            <p>Product Thumbnail</p>
             <div id="img-preview" for="choose-file" class="border-2 border-neutral-400 border-dashed rounded-md size-80 p-3">
                 <img src="/image/product/{{$product->id .'/'. $product->thumbnail}}" alt="">
             </div>
@@ -49,13 +49,13 @@
                 @endforeach
                 
                 <li class="splide__slide">
-                        <div class="grid w-full h-full place-content-center place-items-center size-6">
-                            <button class="rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="button" onclick="getNewContent()">
-                                <svg class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
-                                </svg>
-                            </button>
-                        </div>
+                    <div class="grid w-full h-full place-content-center place-items-center size-6">
+                        <button class="rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="button" onclick="getNewContent()">
+                            <svg class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+                            </svg>
+                        </button>
+                    </div>
                 </li>
                 </ul>
             </div>
@@ -65,8 +65,8 @@
     
     <div class="flex-1 grid gap-4 h-min">
         <div class="grid">
-            <label for="name">Product Name</label>
-            <input name="name" type="text" value="{{$product->name}}" placeholder="Nama Produk">
+            <label for="name" class="font-bold">Product Name</label>
+            <input class="font-bold" name="name" type="text" value="{{$product->name}}" placeholder="Nama Produk">
         </div>
         <div class="grid">
             <label for="price">Price</label>
@@ -96,10 +96,11 @@
         </div>  
 
         @endif
-        <div class="flex gap-3 items-center"> 
-            <input type="checkbox" id="visibility" name="visibility" @if ($product->visibility) checked @endif >
-            <label for="visibility">Show Product in Shop</label>
-        </div>
+        <label for="visibility" class="inline-flex items-center cursor-pointer">
+            <input id="visibility" name="visibility" type="checkbox" class="sr-only peer" @if ($product->visibility) checked @endif>
+            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Show Product to Shop</span>
+        </label>
         <div class="flex gap-3">
             <button type="submit" class="flex-1 bg-neutral-800 py-2 text-white hover:bg-neutral-900">OK</button>
             <button data-modal-target="delete-modal" data-modal-toggle="delete-modal" class="flex-initial text-white bg-red-600 hover:bg-red-700 focus:outline-none active:bg-red-900 font-medium text-sm px-5 py-2.5 text-center" type="button">
@@ -111,30 +112,7 @@
     </div>
 </form>
 
-
-<div id="delete-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-md max-h-full">
-        <div class="relative bg-white shadow dark:bg-gray-700">
-            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-modal">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                </svg>
-            </button>
-            <div class="p-4 md:p-5 text-center">
-                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
-                <a href="/dashboard/product/delete/{{$product->id}}" data-modal-hide="delete-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium text-sm inline-flex items-center px-5 py-2.5 text-center">
-                    Yes, I'm sure
-                </a>
-                <button data-modal-hide="delete-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                    No, cancel
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<x-delete-modal>/dashboard/product/delete/{{$product->id}}</x-delete-modal>
 
 <script>
     function getImgData(inputId, previewId) {

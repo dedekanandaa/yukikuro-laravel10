@@ -53,16 +53,13 @@ class dashboardBlogController extends Controller
             $encoded = $image->encode(new WebpEncoder(quality: 80));
             $encoded->save(storage_path('app/public/article/'.$id.'/'. $name));
 
-            if ($request->submit == 0) {
-                DB::commit();
-                return back()->with('success', 'new blog posted!');
-            } else {
-                $this->newContentDetail($id, $request->submit, $request->many_cols);
-            }
-            
             DB::commit();
-            return $this->u_blog($id);
 
+            if ($request->submit) {
+                return $this->newContent($id, $request->submit, $request->many_cols);
+            } else {
+                return $this->u_blog($id)->with('success', 'new blog posted!');
+            }
         } catch (\Throwable $th) {
             DB::rollBack();
             Storage::deleteDirectory('public/article/'.$id);
@@ -98,6 +95,7 @@ class dashboardBlogController extends Controller
             ->update([
                 'title' => $request->title,
                 'description' => $request->description,
+                'visibility' => ($request->visibility == true),
             ]);
                     
             if (!empty($request->file('image'))) {
@@ -158,12 +156,12 @@ class dashboardBlogController extends Controller
                     ]);
                 }
             }
-            
-            if ($request->submit == 0) {
-                DB::commit();
-                return back()->with('success', 'blog has been updated');
-            } else {
-                $this->newContentDetail($request->id, $request->submit, $request->many_cols);
+
+            if ($request->submit > 0) {
+                $this->newContent($request->id, $request->submit, $request->many_cols);
+            } elseif($request->submit < 0) {
+                $data = explode(',',$request->submit);
+                $this->newContentDetail($data[1], abs($data[0]));
             }
             
             DB::commit();
@@ -176,12 +174,18 @@ class dashboardBlogController extends Controller
 
     }
 
-    public function newContentDetail($id, $type, $many_cols) {
+    public function newContentDetail($id, $type) {
+        DB::table('content_detail')
+        ->insert([
+            'id_content' => $id,
+            'type' => $type,
+        ]);
+    }
+
+    public function newContent($id, $type, $many_cols) {
         DB::table('content')
         ->insert([
             'id_article' => $id,
-            'type' => $type,
-            'many_cols' => $many_cols,
         ]);
 
         $id_content = DB::table('content')->select('id')->orderBy('id', 'desc')->first()->id;
@@ -190,9 +194,49 @@ class dashboardBlogController extends Controller
             DB::table('content_detail')
             ->insert([
                 'id_content' => $id_content,
+                'type' => $type,
             ]);
         }
+    }
 
+    public function d_blog($id) {
+        try {
+            DB::beginTransaction();
+            DB::table('article')
+            ->delete($id);
+            DB::commit();
+            return back()->with('success', 'Data Updated Successfully!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $error = $th->getMessage();
+            return back()->withErrors(['errors' => $error]);
+        }
+    }
+    public function d_content($id) {
+        try {
+            DB::beginTransaction();
+            DB::table('content')
+            ->delete($id);
+            DB::commit();
+            return back()->with('success', 'Data Updated Successfully!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $error = $th->getMessage();
+            return back()->withErrors(['errors' => $error]);
+        }
+    }
+    public function d_detail($id) {
+        try {
+            DB::beginTransaction();
+            DB::table('content_detail')
+            ->delete($id);
+            DB::commit();
+            return back()->with('success', 'Data Updated Successfully!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $error = $th->getMessage();
+            return back()->withErrors(['errors' => $error]);
+        }
     }
 
 }

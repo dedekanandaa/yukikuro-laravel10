@@ -1,9 +1,3 @@
-
-@section('tes')
-{{var_dump($data)}}
-    
-@endsection
-
 @section('text-grid-1')
     <div class="grid grid-cols-{{$data->many_cols}}">
         <p class="">{{"$data->content"}}</p>

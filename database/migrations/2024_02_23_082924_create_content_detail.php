@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_content')->constrained('content');
             $table->text('description')->nullable();
+            $table->enum('type',['text', 'image','product']);
             $table->timestamps();
         });
     }
