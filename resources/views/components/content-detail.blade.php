@@ -1,7 +1,7 @@
     <div class="flex flex-col md:flex-row gap-2">
     @foreach ($detail as $data)
     @if ($data->id_content == $item->id)
-    @switch($item->type)
+    @switch($data->type)
         @case("image")
                 @empty(!$data->description)
                     @php

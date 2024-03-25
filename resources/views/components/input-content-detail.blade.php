@@ -20,15 +20,14 @@
                 @else
                 <img src="/image/article/{{$id}}/{{$data->description}}" class="object-contain" loading="lazy">
                 @endif
-                <input name="image[{{$data->id}}]" type="file" id="choose-file-{{$data->id}}" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file-{{$data->id}}', 'img-preview-{{$data->id}}')" value="null" hidden>
-                <button onclick="modalvalue('detail', '{{$data->id}}')" class="absolute right-1 top-1 rounded-full p-2 hover:bg-gray-100 active:bg-gray-200" type="button" data-modal-target="delete-modal" data-modal-toggle="delete-modal">
-                    <svg class="w-6 h-6 text-gray-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="-12 5 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" class="rotate-45"/>
-                    </svg>
-                </button>
             </div>
-
+            <button onclick="modalvalue('detail', '{{$data->id}}')" class="absolute right-1 top-1 rounded-full p-2 hover:bg-gray-100 active:bg-gray-200" type="button" data-modal-target="delete-modal" data-modal-toggle="delete-modal">
+                <svg class="w-6 h-6 text-gray-600 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="-12 5 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" class="rotate-45"/>
+                </svg>
+            </button>
         </label>
+        <input name="image[{{$data->id}}]" type="file" id="choose-file-{{$data->id}}" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file-{{$data->id}}', 'img-preview-{{$data->id}}')" value="null" hidden>
             @break
         @case("text")
             <div class="flex-1 relative mx-1">

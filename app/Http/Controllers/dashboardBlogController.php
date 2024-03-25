@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
-use intervention\Gif\Encoders\ImageDataEncoder;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\WebpEncoder;
 
@@ -15,6 +14,7 @@ class dashboardBlogController extends Controller
     public function r_blog() {
         $article = DB::table("article")
         ->orderByDesc('id')
+        ->where('id', '>', 1)
         ->get();
         
         return view('dashboard.r-blog')
@@ -205,7 +205,7 @@ class dashboardBlogController extends Controller
             DB::table('article')
             ->delete($id);
             DB::commit();
-            return back()->with('success', 'Data Updated Successfully!');
+            return redirect('/dashboard/blog')->with('success', 'Data Updated Successfully!');
         } catch (\Throwable $th) {
             DB::rollBack();
             $error = $th->getMessage();

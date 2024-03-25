@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->integer('price');
-            $table->string('thumbnail', 255);
+            $table->char('thumbnail', 45);
             $table->text('description');
             $table->boolean('visibility');
 

@@ -2,12 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @stack('splide')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Document</title>
+    <title>@stack('title')</title>
 </head>
 
 <body>
@@ -24,7 +21,7 @@
                         </svg>
                     </button>
                     <a href="/dashboard" class="flex ms-2 md:me-24">
-                        <img src="/image/logo.jpg" class="h-8 me-3" alt="logo" />
+                        <img src="/image/home/logo.webp" class="h-8 me-3" alt="logo" />
                         <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                             Kuro Dashboard
                         </span>
@@ -70,7 +67,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="/dashboard/homepage"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <span class="flex-1 ms-3 whitespace-nowrap">Homepage</span>
                     </a>
@@ -108,7 +105,7 @@
     <div class="p-6 lg:ml-64 mt-14">
         
         @if ($errors->any())
-        
+        <span class="bg-red-50 hover:bg-red-100"></span>
         @foreach ($errors->all() as $error)
         <x-alert :color="'red'">
             {{ $error }}
@@ -117,6 +114,7 @@
         @endif
         
         @if (session('success'))
+        <span class="bg-green-50 hover:bg-green-100"></span>
         <x-alert :color="'green'">
             {{ session('success') }}
         </x-alert>

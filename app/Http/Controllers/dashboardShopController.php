@@ -11,10 +11,6 @@ use Intervention\Image\Encoders\WebpEncoder;
 
 class dashboardShopController extends Controller
 {
-    public function index() {
-        return view('dashboard.index');
-    }
-
     public function readProduct() {
         $product = DB::table('product')
         ->orderBy('id', 'desc')
@@ -24,7 +20,7 @@ class dashboardShopController extends Controller
         ->get();
 
         // return $product;
-        return view('dashboard.product')
+        return view('dashboard.r-product')
         ->with('product', $product)
         ->with('stock', $stock);
     }
@@ -62,7 +58,6 @@ class dashboardShopController extends Controller
             $manager = new ImageManager(Driver::class);
             $file = $request->file('thumbnail');
             $image = $manager->read($file);
-            $image->scale(width:600);
             $encoded = $image->encode(new WebpEncoder(quality: 75));
             $encoded->save(storage_path('app/public/product/'.$id.'/'. $name));
             
@@ -89,7 +84,7 @@ class dashboardShopController extends Controller
             ]);
             
             DB::commit();
-            return redirect('dashboard/product')->with('success', 'New product added successfully!');
+            return redirect('dashboard/r-product')->with('success', 'New product added successfully!');
             
         } catch (\Throwable $th) {
             
@@ -139,21 +134,55 @@ class dashboardShopController extends Controller
             ]);
 
             if (!empty($request->thumbnail)) {
+                $old = DB::table('product')
+                ->where('id', $request->id)->value('thumbnail');
                 $filename = pathinfo($request->file('thumbnail')->hashName(), PATHINFO_FILENAME);
                 $name = $filename . '.webp';
 
+                $id = $request->id;
+                $manager = new ImageManager(Driver::class);
+
+                $file = $request->file('thumbnail');
+                $image = $manager->read($file);
+                $image->scale(width:1080);
+
+                $encoded = $image->encode(new WebpEncoder(quality: 75));
+                Storage::delete('/public/product/'.$id.'/'. $old);
+                $encoded->save(storage_path('app/public/product/'.$id.'/'. $name));
+                
                 DB::table('product')
                 ->where('id', $request->id)
                 ->update([
                     'thumbnail' => $name
                 ]);
+            }
+            
+            if (!empty($request->image)) {
+                foreach ($request->file('image') as $key => $file){ 
+                    $old = DB::table('product_image')->where('id', $key)->value('image'); 
+                    $manager = new ImageManager(Driver::class);
+                    $image = $manager->read($file);
+                    $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.webp';   
+                    
+                    $image->scale(width:1080);
+                    $encoded = $image->encode(new WebpEncoder(quality: 75));
+                    Storage::delete('/public/product/'.$request->id.'/'. $old);
+                    $encoded->save(storage_path('app/public/product/'.$request->id.'/'. $filename));
 
-                $id = DB::table('product')->select('id')->orderBy('id', 'desc')->first()->id;
-                $manager = new ImageManager(Driver::class);
-                $file = $request->file('thumbnail');
-                $image = $manager->read($file);
-                $encoded = $image->encode(new WebpEncoder(quality: 75));
-                $encoded->save(storage_path('app/public/product/'.$id.'/'. $name));
+                    DB::table('product_image')
+                    ->where('id', $key)
+                    ->update([
+                        'image' => $filename
+                    ]);
+                    
+                } 
+            }
+
+            if ($request->submit) {
+                DB::table('product_image')
+                ->insert([
+                    'id_product' => $request->id
+                ]);
             }
 
             if ($request->hassize == true) {
@@ -196,22 +225,12 @@ class dashboardShopController extends Controller
             ->delete();
             Storage::deleteDirectory('public/product/'.$id);
             DB::commit();
-            return redirect('dashboard/product')->with('success', 'Product Deleted Successfully');
+            return redirect('dashboard/r-product')->with('success', 'Product Deleted Successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
             $error = $th->getMessage();
             return back()->withErrors(['errors' => $error]);
         }
-    }
-
-    public function tesimage(Request $request) {
-        $files = [];
-        foreach ($request->file('images') as $file) {
-            $file_name = time().rand(1,99).'.'.$file->extension();
-            $files[]['name'] = $file_name;
-            return $file;
-        }
-        return $files;
     }
     
 }

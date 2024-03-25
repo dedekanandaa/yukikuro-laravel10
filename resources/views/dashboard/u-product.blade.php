@@ -38,7 +38,7 @@
                                     <p class="text-xs text-gray-500">SVG, PNG, JPG or Webp</p>
                                 @else
                                 
-                                    <img src="/image/product/{{$id}}/{{$data->image}}" class="max-w-full max-h-full">
+                                    <img src="/image/product/{{$product->id}}/{{$data->image}}" class="max-w-full max-h-full">
                                 @endif
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                 
                 <li class="splide__slide">
                     <div class="grid w-full h-full place-content-center place-items-center size-6">
-                        <button class="rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="button" onclick="getNewContent()">
+                        <button href="/dashboard/product/edit" class="rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="submit" name="submit" value="1">
                             <svg class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
                             </svg>

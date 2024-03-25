@@ -21,16 +21,22 @@ class shopController extends Controller
     }
     
     public function product($productname) {
+        
         $product = DB::table('product')
         ->where('name', $productname)
         ->get();
-
+        
         $stock = DB::table('stock')
-        ->where('id_product', $product[0]->id)
+        ->where('id_product', $product->value('id'))
         ->get();
-
+        
+        $image = DB::table('product_image')
+        ->where('id_product', $product->value('id'))
+        ->get();
+        
         return view('shop.product')
         ->with('product', $product)
-        ->with('stock', $stock);
+        ->with('stock', $stock)
+        ->with('image', $image);
     }
 }

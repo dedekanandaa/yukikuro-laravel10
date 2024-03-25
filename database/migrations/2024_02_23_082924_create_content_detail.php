@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('content_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_content')->constrained('content');
+            $table->foreignId('id_content')->constrained('content')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->enum('type',['text', 'image','product']);
             $table->timestamps();

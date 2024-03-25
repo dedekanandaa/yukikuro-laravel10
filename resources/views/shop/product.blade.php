@@ -12,55 +12,29 @@
             <section id="main-carousel" class="splide" aria-label="My Awesome Gallery">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide opacity-100" onmousemove="zoom(event)" style="background-image: url('/image/header.png')">
-                            <img class="hover:opacity-0" src="/image/header.png" >
+                        <li class="splide__slide opacity-100 w-96" onmousemove="zoom(event)" style="background-image: url('/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}')">
+                            <img class="hover:opacity-0 bg-white" src="/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}" >
                         </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
+                        @foreach ($image as $item)
+                        <li class="splide__slide opacity-100" onmousemove="zoom(event)" style="background-image: url('/image/product/{{$item->id_product}}/{{$item->image}}')">
+                            <img class="hover:opacity-0 bg-white" src="/image/product/{{$item->id_product}}/{{$item->image}}" >
                         </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide opacity-100">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </section>
-
+            
             <section id="thumbnails" class="splide mt-3" aria-label="thumbnails">
                 <div class="splide__track">
                     <ul class="splide__list">
                         <li class="splide__slide thumbnail">
-                            <img src="/image/header.png" alt="">
+                            <img class="hover:opacity-0" src="/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}" >
                         </li>
+                        @foreach ($image as $item)
                         <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
+                            <img class="hover:opacity-0" src="/image/product/{{$item->id_product}}/{{$item->image}}" >
                         </li>
-                        <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
-                        <li class="splide__slide thumbnail">
-                            <img src="/image/BLACK FRONT.png" alt="">
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </section>
@@ -135,12 +109,12 @@
 
     <script>
         function zoom(e){
-        var zoomer = e.currentTarget;
-        e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
-        e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
-        x = offsetX/zoomer.offsetWidth*100
-        y = offsetY/zoomer.offsetHeight*100
-        zoomer.style.backgroundPosition = x + '% ' + y + '%';
+            var zoomer = e.currentTarget;
+            e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+            e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+            x = offsetX/zoomer.offsetWidth * 100
+            y = offsetY/zoomer.offsetHeight * 100
+            zoomer.style.backgroundPosition = x + '% ' + y + '%';
         }
 
         document.addEventListener( 'DOMContentLoaded', function () {
