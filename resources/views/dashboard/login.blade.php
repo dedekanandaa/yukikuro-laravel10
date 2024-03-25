@@ -10,17 +10,17 @@
 </head>
 
 <body>
-  {{session('counter') > 3}}
-    @if ($errors->any())
-        <span class="bg-red-50 hover:bg-red-100"></span>
-        @foreach ($errors->all() as $error)
-            <x-alert :color="'red'">
-                {{ $error }}
-            </x-alert>
-        @endforeach
-    @endif
-
+    
     <main class="h-dvh w-full grid content-center justify-center">
+        {{session('counter') > 3}}
+          @if ($errors->any())
+              <span class="bg-red-50 hover:bg-red-100"></span>
+              @foreach ($errors->all() as $error)
+                  <x-alert :color="'red'">
+                      {{ $error }}
+                  </x-alert>
+              @endforeach
+          @endif
         <p class="text-2xl font-bold my-3 text-center">You're not supposed to be here</p>
         <form action="/dashboard/loginprocess" class="max-w-sm" method="POST">
             @csrf

@@ -15,7 +15,7 @@ class AccessAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('username')) {
+        if (session('user') == 'admin') {
             return $next($request);
         } else {
             return redirect('/');

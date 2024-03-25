@@ -71,6 +71,7 @@ Route::get('/refresh', function() {
 Route::controller(dashboard::class)->group(function() {
     Route::get('/dashboard/login', 'login');
     Route::post('/dashboard/loginprocess', 'loginProcess');
+
 });
 
 Route::middleware([AccessAdmin::class])->group(function() {

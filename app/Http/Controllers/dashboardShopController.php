@@ -84,7 +84,7 @@ class dashboardShopController extends Controller
             ]);
             
             DB::commit();
-            return redirect('dashboard/r-product')->with('success', 'New product added successfully!');
+            return redirect('/dashboard/product')->with('success', 'New product added successfully!');
             
         } catch (\Throwable $th) {
             

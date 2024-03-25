@@ -11,6 +11,7 @@ class homeController extends Controller
     {
         $article = DB::table('article')
         ->orderByDesc('id')
+        ->where('visibility', true)
         ->limit(6)
         ->get();
 
@@ -18,6 +19,7 @@ class homeController extends Controller
         ->select( 'product.id','product.name','product.thumbnail', 'product.price', DB::raw('SUM(qty) as total'))
         ->join('stock', 'product.id', '=', 'stock.id_product')
         ->groupBy( 'product.id','product.name', 'product.thumbnail', 'product.price')
+        ->where('visibility', true)
         ->orderByDesc('product.id')
         ->get();
 

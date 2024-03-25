@@ -41,6 +41,7 @@ class dashboardBlogController extends Controller
                 'title' => $request->title,
                 'thumbnail' => $name,
                 'description' => $request->description,
+                'visibility' => false,
             ]);
 
             $id = DB::table('article')->orderByDesc('id')->value('id');
@@ -55,11 +56,13 @@ class dashboardBlogController extends Controller
 
             DB::commit();
 
-            if ($request->submit) {
-                return $this->newContent($id, $request->submit, $request->many_cols);
-            } else {
-                return $this->u_blog($id)->with('success', 'new blog posted!');
-            }
+            if ($request->submit != 0) {
+                $this->newContent($id, $request->submit, $request->many_cols);
+            } 
+
+            return redirect('/dashboard/blog/edit/'.$id);
+            $this->u_blog($id)->with('success', 'new blog posted!');
+
         } catch (\Throwable $th) {
             DB::rollBack();
             Storage::deleteDirectory('public/article/'.$id);

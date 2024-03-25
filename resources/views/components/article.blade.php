@@ -1,7 +1,6 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
     @isset($article)
     @foreach ($article as $item)
-    @if ($item->visibility)
     <div>
         <a href="/blog/{{$item->title}}">
             <article class="space-y-3">
@@ -14,7 +13,6 @@
             </article>
         </a>
     </div>
-    @endif
     @endforeach
     @endisset
 </div>
