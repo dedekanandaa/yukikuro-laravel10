@@ -12,12 +12,12 @@
             <section id="main-carousel" class="splide" aria-label="My Awesome Gallery">
                 <div class="splide__track">
                     <ul class="splide__list">
-                        <li class="splide__slide opacity-100 w-96" onmousemove="zoom(event)" style="background-image: url('/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}')">
-                            <img class="hover:opacity-0 bg-white" src="/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}" >
+                        <li class="splide__slide opacity-100 w-96" onmousemove="zoom(event)" style="background-image: url('{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}')">
+                            <img class="hover:opacity-0 bg-white" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
                         </li>
                         @foreach ($image as $item)
-                        <li class="splide__slide opacity-100" onmousemove="zoom(event)" style="background-image: url('/image/product/{{$item->id_product}}/{{$item->image}}')">
-                            <img class="hover:opacity-0 bg-white" src="/image/product/{{$item->id_product}}/{{$item->image}}" >
+                        <li class="splide__slide opacity-100" onmousemove="zoom(event)" style="background-image: url('{{asset("/storage/product/{$item->id_product}/{$item->image}")}}')">
+                            <img class="hover:opacity-0 bg-white" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
                         </li>
                         @endforeach
                     </ul>
@@ -28,11 +28,11 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         <li class="splide__slide thumbnail">
-                            <img class="hover:opacity-0" src="/image/product/{{$product->value('id')}}/{{$product->value('thumbnail')}}" >
+                            <img class="hover:opacity-50" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
                         </li>
                         @foreach ($image as $item)
                         <li class="splide__slide thumbnail">
-                            <img class="hover:opacity-0" src="/image/product/{{$item->id_product}}/{{$item->image}}" >
+                            <img class="hover:opacity-50" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
                         </li>
                         @endforeach
                     </ul>

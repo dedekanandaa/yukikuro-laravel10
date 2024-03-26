@@ -1,7 +1,7 @@
 <nav class="sticky top-0 bg-white border z-50">
     <div class="max-w-screen-xl md:w-10/12 flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="/image/home/logo.webp" class="h-8" alt="Kuro Logo" />
+            <img src="{{asset("storage/home/logo.webp")}}" class="h-8" alt="Kuro Logo" />
             <span class="self-center font-mono text-2xl font-semibold whitespace-nowrap">Yuki Kuro</span>
         </a>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">

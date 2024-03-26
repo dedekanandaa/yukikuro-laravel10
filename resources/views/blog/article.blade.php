@@ -3,9 +3,9 @@
 @section('konten')
 
 <article class="max-w-screen-xl md:w-9/12 mx-auto flex-1 space-y-3">
-    <h1 class="text-2xl font-bold">{{ $article[0]->title }}</h1>
-    <img class="mx-auto min-w-full" src="/image/article/{{$article[0]->id . '/' . $article[0]->thumbnail}}" alt="header.img">
-    <p class="text-justify">{{$article[0]->description}}</p>
+    <h1 class="text-2xl font-bold">{{ $article->value("title") }}</h1>
+    <img class="mx-auto min-w-full" src="{{asset("storage/article/{$article->value("id")}/{$article->value("thumbnail")}")}}" alt="header.img">
+    <p class="text-justify">{{$article->value("description")}}</p>
     
     @foreach ($content as $item)
     

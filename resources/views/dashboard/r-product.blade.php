@@ -38,7 +38,7 @@
 
             <tr class="bg-white border-b hover:cursor-pointer hover:bg-gray-50" onclick="window.location = ('/dashboard/product/edit/{{$item->id}}')">
                 <td>
-                    <img src="/image/product/{{$item->id . '/' .$item->thumbnail}}" class="h-36">
+                    <img src="{{asset("storage/product/{$item->id}/{$item->thumbnail}")}}" class="h-36">
                 </td>
                 <td class="px-6 py-4">
                     <p class="font-bold">{{$item->name}}</p>

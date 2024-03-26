@@ -11,54 +11,6 @@ use App\Http\Middleware\AccessAdmin;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
-/*
-|----------
-| ASSET ROUTE
-|----------
-*/
-
-Route::get('/image/home/{filename}' , function($filename) {
-    $path = storage_path('app/public/home/'. $filename);;
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = response($file, 200);
-    $response->header('Content-Type', $type);
-    return $response;
-});
-
-Route::get('/image/article/{id}/{filename}', function($id, $filename) {
-    $path = storage_path('app/public/article/'. $id .'/'. $filename);;
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = response($file, 200);
-    $response->header('Content-Type', $type);
-    return $response;
-});
-
-Route::get('/image/product/{id}/{filename}', function($id, $filename) {
-    $path = storage_path('app/public/product/'. $id .'/'. $filename);;
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = response($file, 200);
-    $response->header('Content-Type', $type);
-    return $response;
-});
-
-/*
-|----------
-| WEB ROUTE
-|----------
-*/
-
 Route::get('/about', function () {
     return view('about.index');
 });
@@ -119,7 +71,7 @@ Route::controller(homeController::class)->group(function () {
 
 Route::controller(shopController::class)->group(function () {
     Route::get('/shop', 'index');
-    Route::get('/shop/{product_name}', 'product');
+    Route::get('/shop/{id}', 'product');
 });
 
 // Route::controller(aboutController::class)->group(function () {
@@ -128,5 +80,5 @@ Route::controller(shopController::class)->group(function () {
 
 Route::controller(blogController::class)->group(function () {
     Route::get('/blog', 'index');
-    Route::get('/blog/{title}', 'article');
+    Route::get('/blog/{id}', 'article');
 });

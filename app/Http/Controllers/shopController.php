@@ -14,24 +14,25 @@ class shopController extends Controller
         ->join('stock', 'product.id', '=', 'stock.id_product')
         ->groupBy( 'product.id','product.name', 'product.thumbnail', 'product.price')
         ->orderByDesc('product.id')
+        ->where("visibility", true)
         ->get();
 
         // return $product;
         return view('shop.index')->with('product', $product);
     }
     
-    public function product($productname) {
+    public function product($id) {
         
         $product = DB::table('product')
-        ->where('name', $productname)
+        ->where('id', $id)
         ->get();
         
         $stock = DB::table('stock')
-        ->where('id_product', $product->value('id'))
+        ->where('id_product', $id)
         ->get();
         
         $image = DB::table('product_image')
-        ->where('id_product', $product->value('id'))
+        ->where('id_product', $id)
         ->get();
         
         return view('shop.product')

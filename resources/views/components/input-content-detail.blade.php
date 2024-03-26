@@ -18,7 +18,7 @@
                         <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF</p>
                     </div>
                 @else
-                <img src="/image/article/{{$id}}/{{$data->description}}" class="object-contain" loading="lazy">
+                <img src="{{asset("storage/article/{$id}/{$data->description}")}}" class="object-contain" loading="lazy">
                 @endif
             </div>
             <button onclick="modalvalue('detail', '{{$data->id}}')" class="absolute right-1 top-1 rounded-full p-2 hover:bg-gray-100 active:bg-gray-200" type="button" data-modal-target="delete-modal" data-modal-toggle="delete-modal">

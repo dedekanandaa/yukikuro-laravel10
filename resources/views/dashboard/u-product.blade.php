@@ -14,7 +14,7 @@
         <label for="choose-file" class="flex-col flex hover:cursor-pointer">
             <p>Product Thumbnail</p>
             <div id="img-preview" for="choose-file" class="border-2 border-neutral-400 border-dashed rounded-md size-80 p-3">
-                <img src="/image/product/{{$product->id .'/'. $product->thumbnail}}" alt="">
+                <img src="{{asset("storage/product/{$product->id}/{$product->thumbnail}")}}" alt="">
             </div>
             <input name="thumbnail" type="file" id="choose-file" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file', 'img-preview')" hidden>
         </label>
@@ -38,7 +38,7 @@
                                     <p class="text-xs text-gray-500">SVG, PNG, JPG or Webp</p>
                                 @else
                                 
-                                    <img src="/image/product/{{$product->id}}/{{$data->image}}" class="max-w-full max-h-full">
+                                    <img src="{{asset("storage/product/{$product->id}/{$data->image}")}}" class="max-w-full max-h-full">
                                 @endif
                                 </div>
                             </div>

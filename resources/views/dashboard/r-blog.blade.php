@@ -21,7 +21,7 @@
     <div class="p-0 sm:p-1 md:p-2 bg-white">
         <a href="/dashboard/blog/edit/{{$item->id}}">
             <article class="space-y-3">
-                <img loading="lazy" class="w-full aspect-[3/2] object-cover" src="/image/article/{{$item->id ."/". $item->thumbnail}}">
+                <img loading="lazy" class="w-full aspect-[3/2] object-cover" src="{{asset("storage/article/{$item->id}/{$item->thumbnail}")}}">
                 <div>
                     <h2 class="font-bold text-lg text-neutral-800">
                         {{$item->title}}

@@ -14,7 +14,7 @@
         <p>Blog Thumbnail</p>
         <div id="img-preview" class="table border-2 border-neutral-400 border-dashed rounded-md p-3">
             <div class="contents">
-                <img src="/image/article/{{$article->id .'/'. $article->thumbnail}}" class="w-full">
+                <img src="{{asset("storage/article/{$article->id}/{$article->thumbnail}")}}" class="w-full">
             </div>
         </div>
         <input name="thumbnail" type="file" id="choose-file" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file', 'img-preview')" hidden>
