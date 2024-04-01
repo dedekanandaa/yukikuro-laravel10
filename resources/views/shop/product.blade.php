@@ -1,41 +1,38 @@
 @extends('index')
 
 @push('splide')
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 @endPush
 
 @section('konten')
     <main class="grid grid-cols-1 lg:grid-cols-2 mx-auto max-w-screen-xl h-full md:w-10/12 md:my-12 flex-1">
         <div class="p-0 lg:mr-12">
 
-            <section id="main-carousel" class="splide" aria-label="My Awesome Gallery">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide opacity-100 w-96" onmousemove="zoom(event)" style="background-image: url('{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}')">
-                            <img class="hover:opacity-0 bg-white" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
-                        </li>
-                        @foreach ($image as $item)
-                        <li class="splide__slide opacity-100" onmousemove="zoom(event)" style="background-image: url('{{asset("/storage/product/{$item->id_product}/{$item->image}")}}')">
-                            <img class="hover:opacity-0 bg-white" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
-                        </li>
-                        @endforeach
-                    </ul>
+            <section id="" class="swiper product-slider" aria-label="My Awesome Gallery">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide opacity-100 w-96" onmousemove="zoom(event)" ontouchstart="" ontouchmove="" style="background-image: url('{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}')">
+                        <img class="hover:opacity-0 bg-white" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
+                    </div>
+                    @foreach ($image as $item)
+                    <div class="swiper-slide opacity-100" onmousemove="zoom(event)" ontouchstart="" ontouchmove="" style="background-image: url('{{asset("/storage/product/{$item->id_product}/{$item->image}")}}')">
+                        <img class="hover:opacity-0 bg-white" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
+                    </div>
+                    @endforeach
                 </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </section>
             
-            <section id="thumbnails" class="splide mt-3" aria-label="thumbnails">
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide thumbnail">
-                            <img class="hover:opacity-50" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
-                        </li>
-                        @foreach ($image as $item)
-                        <li class="splide__slide thumbnail">
-                            <img class="hover:opacity-50" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
-                        </li>
-                        @endforeach
-                    </ul>
+            <section id="" class="swiper thumbnail-slider mt-3" aria-label="thumbnails">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide ">
+                        <img class="hover:opacity-50" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
+                    </div>
+                    @foreach ($image as $item)
+                    <div class="swiper-slide ">
+                        <img class="hover:opacity-50" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
+                    </div>
+                    @endforeach
                 </div>
             </section>
 
@@ -87,26 +84,24 @@
     </main>
 
     <style>
-        .splide__slide img{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            transition: opacity .3s;
-            display: block;
-            width: 100%;
-        }
-        
-        .thumbnail {
-            opacity: 0.5;
-        }
+    .thumbnail-slider {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
 
-        .thumbnail.is-active {
-            opacity: 1;
-        }
+    .thumbnail-slider .swiper-slide {
+      width: 25%;
+      height: 100%;
+      opacity: 0.4;
+    }
 
-        </style>
+    .thumbnail-slider .swiper-slide-thumb-active {
+      opacity: 1;
+    }
 
 
+    </style>
     <script>
         function zoom(e){
             var zoomer = e.currentTarget;
@@ -116,32 +111,25 @@
             y = offsetY/zoomer.offsetHeight * 100
             zoomer.style.backgroundPosition = x + '% ' + y + '%';
         }
-
-        document.addEventListener( 'DOMContentLoaded', function () {
-        var main = new Splide( '#main-carousel', {
-            type        : 'fade',
-            drag        : false,
-            rewind      : true,
-            focus       : "none",
-            arrows      : false,
-            
-        } );
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
         
-        var thumbnails = new Splide( '#thumbnails', {
-            fixedWidth  : 100,
-            fixedHeight : 70,
-            gap         : 5,
-            perMove     : 1,
-            snap        : false,
-            updatOnMove : false,
-            rewind      : true,
-            keyboard    : 'global',
-            isNavigation: true,
-        } );
-
-        main.sync( thumbnails );
-        main.mount();
-        thumbnails.mount();
-        } );
+        var swiper = new Swiper(".thumbnail-slider", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".product-slider", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+        });
     </script>
 @endsection
