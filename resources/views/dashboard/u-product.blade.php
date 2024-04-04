@@ -1,8 +1,7 @@
 @extends('dashboard.index')
 
 @push('splide')
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 @endPush
 
 @section('content')
@@ -19,13 +18,10 @@
             <input name="thumbnail" type="file" id="choose-file" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file', 'img-preview')" hidden>
         </label>
 
-        <section id="thumbnail-carousel" class="splide mt-3 lg:w-80" aria-label="images">
-            <div class="splide__track">
-                <ul class="splide__list">
-                
+        <section class="swiper product-slider mt-3 lg:w-80">
+            <div class="swiper-wrapper">
                 @foreach ($image as $data)
-                <li class="splide__slide">
-                    <div class="max-h-full max-w-full object-cover">
+                    <div class="swiper-slide max-h-full max-w-full object-cover">
                         <label for="choose-file-{{$data->id}}" class="hover:cursor-pointer h-[154px]">
                             <div id="img-preview-{{$data->id}}" class="border-2 border-neutral-400 border-dashed rounded-md aspect-square p-3 place-content-center place-items-center grid">
                                 <div class="contents">
@@ -45,20 +41,17 @@
                         <input name="image[{{$data->id}}]" type="file" id="choose-file-{{$data->id}}" accept="image/png, image/jpeg, image/webp" onchange="getImgData('choose-file-{{$data->id}}', 'img-preview-{{$data->id}}')" value="null" hidden>
                         </label>
                     </div>
-                </li>
                 @endforeach
-                
-                <li class="splide__slide">
-                    <div class="grid w-full h-full place-content-center place-items-center size-6">
-                        <button href="/dashboard/product/edit" class="rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="submit" name="submit" value="1">
+                    <div class="swiper-slide my-auto size-6">
+                        <button href="/dashboard/product/edit" class="relative left-1/2 translate-x-[-50%] rounded-full p-2 border-2 border-gray-500 text-white hover:bg-gray-100" type="submit" name="submit" value="1">
                             <svg class="w-6 h-6 text-gray-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
                             </svg>
                         </button>
                     </div>
-                </li>
-                </ul>
-            </div>
+                </div>
+            <div class="swiper-button-next" style="color: black;"></div>
+            <div class="swiper-button-prev" style="color: black;"></div>
         </section>
 
     </div>
@@ -114,7 +107,9 @@
 
 <x-delete-modal>/dashboard/product/delete/{{$product->id}}</x-delete-modal>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+
     function getImgData(inputId, previewId) {
         const chooseFile = document.getElementById(inputId);
         const imgPreview = document.getElementById(previewId);
@@ -127,17 +122,14 @@
             });
         }
     }
-document.addEventListener( 'DOMContentLoaded', function () {
-  new Splide( '#thumbnail-carousel', {
-		fixedWidth : 154,
-        fixedHeight: 154,
-		gap        : 10,
-        snap       : false,
-		rewind     : true,
-		pagination : false,
-  } ).mount();
-} );
-
-    images.mount();
+    var product = new Swiper(".product-slider", {
+        spaceBetween: 10,
+        freeMode: true,
+        slidesPerView: 2.5,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
 </script>
 @endsection

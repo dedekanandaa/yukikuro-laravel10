@@ -6,9 +6,9 @@
             <article class="space-y-3">
                 <img loading="lazy" class="w-full aspect-[3/2] object-cover" src="{{asset("storage/article/{$item->id}/{$item->thumbnail}")}}">
                 <div>
-                    <h2 class="font-bold text-lg text-neutral-800">{{$item->title}}</h2>
-                    <p class="text-neutral-500 line-clamp-2">{{$item->description}}</p>
-                    <p class="text-neutral-500 hover:text-neutral-900 text-xs text-end">Show More</p>
+                    <h2 class="font-bold text-xl text-neutral-800">{{$item->title}}</h2>
+                    <p class="pt-3 text-neutral-500 line-clamp-4">{{$item->description}}</p>
+                    <p class="pt-1 text-neutral-500 hover:text-neutral-900 text-xs">Show More</p>
                 </div>
             </article>
         </a>

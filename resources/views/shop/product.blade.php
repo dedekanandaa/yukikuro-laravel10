@@ -1,44 +1,44 @@
 @extends('index')
 
 @push('splide')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 @endPush
 
 @section('konten')
-    <main class="grid grid-cols-1 lg:grid-cols-2 mx-auto max-w-screen-xl h-full md:w-10/12 md:my-12 flex-1">
-        <div class="p-0 lg:mr-12">
+    <main class="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-screen-xl h-full w-10/12 md:my-12 flex-1">
+        <section class="p-0 md:mr-12 select-none">
 
-            <section id="" class="swiper product-slider" aria-label="My Awesome Gallery">
+            <div class="swiper product-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide opacity-100 w-96" onmousemove="zoom(event)" ontouchstart="" ontouchmove="" style="background-image: url('{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}')">
+                    <div class="swiper-slide opacity-100" onmousemove="zoom(event)" style="background-image: url('{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}')">
                         <img class="hover:opacity-0 bg-white" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
                     </div>
                     @foreach ($image as $item)
-                    <div class="swiper-slide opacity-100" onmousemove="zoom(event)" ontouchstart="" ontouchmove="" style="background-image: url('{{asset("/storage/product/{$item->id_product}/{$item->image}")}}')">
+                    <div class="swiper-slide opacity-100" onmousemove="zoom(event)" style="background-image: url('{{asset("/storage/product/{$item->id_product}/{$item->image}")}}')">
                         <img class="hover:opacity-0 bg-white" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
                     </div>
                     @endforeach
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </section>
+                <div class="swiper-button-next" style="color: black;"></div>
+                <div class="swiper-button-prev" style="color: black;"></div>
+            </div>
             
-            <section id="" class="swiper thumbnail-slider mt-3" aria-label="thumbnails">
+            <div class="swiper thumbnail-slider mt-3">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide ">
+                    <div class="swiper-slide opacity-50">
                         <img class="hover:opacity-50" src="{{asset("storage/product/{$product->value('id')}/{$product->value('thumbnail')}")}}" >
                     </div>
                     @foreach ($image as $item)
-                    <div class="swiper-slide ">
+                    <div class="swiper-slide opacity-50">
                         <img class="hover:opacity-50" src="{{asset("/storage/product/{$item->id_product}/{$item->image}")}}" >
                     </div>
                     @endforeach
                 </div>
-            </section>
+            </div>
 
-        </div>
+        </section>
 
-        <div class=" m-0 p-4 border-transparent lg:border-neutral-300 border-l-2 lg:pl-12">
+        <div class=" m-0 p-4 border-transparent md:border-neutral-300 border-l-2 md:pl-12">
             <h1 class="text-4xl font-bold mb-4">{{ $product[0]->name }}</h1>
             <p class="text-3xl mb-4">{{ 'Rp. '.number_format($product[0]->price, 0, ',', '.') }}</p>
             <div class="text-neutral-500 text-sm mb-4">
@@ -47,7 +47,7 @@
             </div>
             
             @empty (!$stock->value('size'))
-            <div class="flex items-center mb-4 gap-2">
+            <div class="mb-4">
                 <p>Size :</p>
                 <ul class="flex gap-2">
                     @foreach ($stock as $item)
@@ -84,23 +84,9 @@
     </main>
 
     <style>
-    .thumbnail-slider {
-      height: 20%;
-      box-sizing: border-box;
-      padding: 10px 0;
-    }
-
-    .thumbnail-slider .swiper-slide {
-      width: 25%;
-      height: 100%;
-      opacity: 0.4;
-    }
-
     .thumbnail-slider .swiper-slide-thumb-active {
       opacity: 1;
     }
-
-
     </style>
     <script>
         function zoom(e){
@@ -114,22 +100,26 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        
-        var swiper = new Swiper(".thumbnail-slider", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
+        var thumbnail = new Swiper(".thumbnail-slider", {
+            spaceBetween: 10,
+            freeMode: true,
+            watchSlidesProgress: true,
+            slidesPerView: 3,
+            breakpoints: {
+                768 : {
+                    slidesPerView: 4,
+                },
+            }
         });
-        var swiper2 = new Swiper(".product-slider", {
-        spaceBetween: 10,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        thumbs: {
-            swiper: swiper,
-        },
+        var product = new Swiper(".product-slider", {
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: thumbnail,
+            },
         });
     </script>
 @endsection
